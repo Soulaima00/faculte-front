@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+<div class="form-wrapper">
+    <div class="form-container">
+      <div class="form-header">
+        <img src="https://img.icons8.com/color/96/university.png" alt="Logo Faculté">
+        <h2>Connexion à la Faculté</h2>
+      </div>
+  
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <input type="email" name="email" [(ngModel)]="login.email" placeholder="Email" required>
+        <input type="password" name="password" [(ngModel)]="login.password" placeholder="Mot de passe" required>
+        <button type="submit">Se connecter</button>
+      </form>
+  
+      <div class="form-links">
+        <a routerLink="/signup-etudiant">S'inscrire comme étudiant</a> |
+        <a routerLink="/signup-prof">S'inscrire comme prof</a>
+      </div>
+    </div>
+  </div>
+  

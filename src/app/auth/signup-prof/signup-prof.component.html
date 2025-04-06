@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="form-wrapper">
+  <div class="form-container">
+    <div class="form-header">
+      <img src="https://img.icons8.com/color/96/teacher.png" alt="Professeur" />
+      <h2>Inscription Professeur</h2>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+      <input type="text" name="nom" [(ngModel)]="prof.nom" placeholder="Nom" required />
+      <input type="text" name="prenom" [(ngModel)]="prof.prenom" placeholder="Prénom" required />
+      <input type="email" name="email" [(ngModel)]="prof.email" placeholder="Email" required />
+      <input type="password" name="password" [(ngModel)]="prof.password" placeholder="Mot de passe" required />
+      <input type="text" name="telephone" [(ngModel)]="prof.telephone" placeholder="Téléphone" required />
+
+      <button type="submit">S'inscrire</button>
+    </form>
+
+    <div class="form-links">
+      <a routerLink="/login">Déjà inscrit ? Se connecter</a>
+    </div>
+  </div>
+</div>
