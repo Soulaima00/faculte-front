@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-signup-etudiant',
-  standalone: true, 
-  imports: [CommonModule, FormsModule,RouterModule,NavbarComponent], 
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
   templateUrl: './signup-etudiant.component.html',
   styleUrls: ['./signup-etudiant.component.css']
 })
@@ -22,20 +22,18 @@ export class SignupEtudiantComponent {
     telephone: ''
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private authService: AuthService) {}
 
   onSubmit() {
-    this.http.post('http://localhost:9090/api/auth/signup-etudiant', this.etudiant)
-      .subscribe({
-        next: (res: any) => {
-          console.log("Réponse :", res);
-          alert("Inscription réussie : " + (res.message || res));
-        },
-        error: err => {
-          console.error("Erreur : ", err);
-          alert("Erreur lors de l'inscription.");
-        }        
-      });
+    this.authService.registerEtudiant(this.etudiant).subscribe({
+      next: (res: any) => {
+        console.log("Réponse :", res);
+        alert("Inscription réussie : " + (res.message || res));
+      },
+      error: err => {
+        console.error("Erreur : ", err);
+        alert("Erreur lors de l'inscription.");
+      }
+    });
   }
-
 }
