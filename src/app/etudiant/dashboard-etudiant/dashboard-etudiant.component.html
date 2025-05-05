@@ -1,1 +1,39 @@
-<p>dashboard-etudiant works!</p>
+<div class="table-container">
+  <h2>Liste des Professeurs</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prof of professeurs">
+        <td data-label="Nom">{{ prof.nom }}</td>
+        <td data-label="Prénom">{{ prof.prenom }}</td>
+        <td data-label="Email">{{ prof.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-container">
+  <h2>Liste des Étudiants</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let etu of etudiants">
+        <td data-label="Nom">{{ etu.nom }}</td>
+        <td data-label="Prénom">{{ etu.prenom }}</td>
+        <td data-label="Email">{{ etu.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

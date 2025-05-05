@@ -28,10 +28,10 @@ export class AuthService {
 
   // pour listeee des utilisateurs
   getEtudiants(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}/users/etudiants`);
+    return this.http.get<User[]>(`${this.baseUrl}/auth/etudiants`);
   }
-
+  
   getProfs(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}/users/profs`);
+    return this.http.get<User[]>(`${this.baseUrl}/auth/profs`);
   }
 }

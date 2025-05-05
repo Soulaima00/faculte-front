@@ -1,11 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { User } from '../../model/user.model';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-dashboard-etudiant',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, ],
   templateUrl: './dashboard-etudiant.component.html',
-  styleUrl: './dashboard-etudiant.component.css'
+  styleUrls: ['./dashboard-etudiant.component.css']
 })
-export class DashboardEtudiantComponent {
+export class DashboardEtudiantComponent implements OnInit {
 
+  professeurs: User[] = [];
+  etudiants: User[] = [];
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.authService.getProfs().subscribe(data => {
+      this.professeurs = data;
+    });
+
+    this.authService.getEtudiants().subscribe(data => {
+      this.etudiants = data;
+    });
+  }
 }

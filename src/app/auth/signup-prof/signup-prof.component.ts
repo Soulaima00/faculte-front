@@ -9,7 +9,7 @@ import { AuthService } from '../../service/auth.service';
   selector: 'app-signup-prof',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
-  providers: [AuthService], // ✅ ajoute ceci pour standalone component
+  providers: [AuthService], 
   templateUrl: './signup-prof.component.html',
   styleUrls: ['./signup-prof.component.css']
 })
