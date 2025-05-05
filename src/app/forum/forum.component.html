@@ -1,0 +1,51 @@
+<!-- Ajouter un post -->
+<div class="form-container">
+    <h2>Ajouter un post</h2>
+    <form (ngSubmit)="ajouterPost()">
+      <input type="text" placeholder="Titre" [(ngModel)]="newPost.titre" name="titre" required>
+      <textarea rows="5" placeholder="Contenu" [(ngModel)]="newPost.contenu" name="contenu" required></textarea>
+      <button type="submit">Publier</button>
+    </form>
+  </div>
+  
+  <!-- Liste des posts -->
+  <div class="table-container" *ngIf="posts.length > 0">
+    <h2>Forum</h2>
+  
+    <div *ngFor="let post of posts" class="post-card">
+      <h3>{{ post.titre }}</h3>
+      <p>{{ post.contenu }}</p>
+      <small>Posté le {{ post.dateCreation | date:'short' }}</small>
+  
+      <!-- Boutons modifier/supprimer -->
+      <div class="post-actions">
+        <button (click)="modifier(post)">Modifier</button>
+        <button (click)="supprimerPost(post.id!)">Supprimer</button>
+      </div>
+  
+      <!-- Formulaire de modification -->
+      <div *ngIf="modifierMode && postEnCours?.id === post.id">
+        <input [(ngModel)]="post.titre" name="modTitre">
+        <textarea [(ngModel)]="post.contenu" name="modContenu"></textarea>
+        <button (click)="validerModification()">Valider</button>
+        <button (click)="annulerModification()">Annuler</button>
+      </div>
+  
+      <!-- 🟡 Commentaires -->
+      <div class="commentaires">
+        <button (click)="chargerCommentaires(post.id!)">Afficher les commentaires</button>
+  
+        <div *ngIf="post.id && commentaires[post.id]">
+          <div *ngFor="let c of commentaires[post.id!] || []" class="comment">
+            <p><strong>{{ c.auteur.id }}:</strong> {{ c.contenu }}</p>
+            <small>{{ c.dateCreation | date:'short' }}</small>
+          </div>
+  
+          <textarea [(ngModel)]="nouveauxCommentaires[post.id]" placeholder="Ajouter un commentaire"></textarea>
+          <button (click)="ajouterCommentaire(post.id!)">Envoyer</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

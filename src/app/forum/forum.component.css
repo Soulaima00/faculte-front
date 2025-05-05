@@ -1,0 +1,53 @@
+.form-container {
+    margin: 20px auto;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+  }
+  
+  button {
+    background: #1976d2;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .post-card {
+    background: #f9f9f9;
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  }
+  
+  .post-actions {
+    margin-top: 10px;
+  }
+  
+  .commentaires {
+    margin-top: 15px;
+    padding-left: 10px;
+    border-left: 3px solid #1976d2;
+  }
+  
+  .comment {
+    background: #f1f1f1;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+  }
+  

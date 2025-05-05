@@ -4,7 +4,7 @@ import { SignupProfComponent } from './auth/signup-prof/signup-prof.component';
 import { LoginComponent } from './auth/login/login.component';
 import { DashboardProfComponent } from './prof/dashboard-prof/dashboard-prof.component';
 import { DashboardEtudiantComponent } from './etudiant/dashboard-etudiant/dashboard-etudiant.component';
-
+import { ForumComponent } from './forum/forum.component';
 
 
 export const routes: Routes = [
@@ -13,5 +13,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'etudiant/dashboard', component: DashboardEtudiantComponent },
   { path: 'prof/dashboard', component: DashboardProfComponent },  
+  { path : 'forum', component: ForumComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
