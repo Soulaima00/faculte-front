@@ -1,22 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Post } from '../model/post.model';
+import { Comment } from '../model/comment.model';
 
-export interface Post {
-  id?: number;
-  titre: string;
-  contenu: string;
-  auteur: { id: number };
-  dateCreation?: string;
-}
-
-export interface Commentaire {
-  id?: number;
-  contenu: string;
-  auteur: { id: number };
-  post: { id: number };
-  dateCreation?: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +17,7 @@ export class ForumService {
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.baseUrl}/posts`);
   }
+  
 
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(`${this.baseUrl}/posts`, post);
@@ -38,22 +26,24 @@ export class ForumService {
   updatePost(id: number, post: Post): Observable<Post> {
     return this.http.put<Post>(`${this.baseUrl}/posts/${id}`, post);
   }
+  
+  
 
   deletePost(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/posts/${id}`);
   }
 
   // 🔹 COMMENTS
-  getCommentsByPost(postId: number): Observable<Commentaire[]> {
-    return this.http.get<Commentaire[]>(`${this.baseUrl}/comments/post/${postId}`);
+  getCommentsByPost(postId: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`${this.baseUrl}/comments/post/${postId}`);
   }
 
-  addComment(comment: Commentaire): Observable<Commentaire> {
-    return this.http.post<Commentaire>(`${this.baseUrl}/comments`, comment);
+  addComment(comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(`${this.baseUrl}/comments`, comment);
   }
 
-  updateComment(id: number, contenu: string): Observable<Commentaire> {
-    return this.http.put<Commentaire>(`${this.baseUrl}/comments/${id}`, contenu, {
+  updateComment(id: number, contenu: string): Observable<Comment> {
+    return this.http.put<Comment>(`${this.baseUrl}/comments/${id}`, contenu, {
       headers: { 'Content-Type': 'application/json' }
     });
   }

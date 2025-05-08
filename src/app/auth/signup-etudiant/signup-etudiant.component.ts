@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarPublicComponent } from '../../shared/navbar-public/navbar-public.component';
 import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-signup-etudiant',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, RouterModule, NavbarPublicComponent],
   templateUrl: './signup-etudiant.component.html',
   styleUrls: ['./signup-etudiant.component.css']
 })

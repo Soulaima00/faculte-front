@@ -11,11 +11,19 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  isLoggedIn = false;
+  role: string | null = null;
+
   constructor(private router: Router) {}
 
-  logout() {
-    
-    localStorage.clear();
-    this.router.navigate(['/login']);
+  ngOnInit() {
+    this.role = localStorage.getItem('role');
+    this.isLoggedIn = !!this.role;
   }
+
+  logout() {
+    localStorage.clear(); // ou removeItem('role') uniquement
+    location.href = '/login'; // ou this.router.navigate(['/login']);
+  }
+  
 }

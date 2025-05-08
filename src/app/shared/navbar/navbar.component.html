@@ -1,13 +1,17 @@
 <nav class="navbar">
-    <div class="navbar-brand">
-      <img src="https://img.icons8.com/color/48/university.png" alt="Logo" />
-      <span>Faculté Admin</span>
-    </div>
-  
-    <ul class="navbar-links">
-      <li><a routerLink="/">Accueil</a></li>
-      <li><a routerLink="/login">Login</a></li>
-      <li><a (click)="logout()">Déconnexion</a></li>
-    </ul>
-  </nav>
-  
+  <div class="navbar-brand">
+    <img src="https://img.icons8.com/color/48/university.png" alt="Logo" />
+    <span>Faculté Admin</span>
+  </div>
+  <ul class="navbar-links">
+
+    <!-- Lien Forum visible pour tous les connectés -->
+    <li *ngIf="isLoggedIn"><a routerLink="/forum">Forum</a></li>
+
+    <!-- Lien vers dashboard selon le rôle -->
+    <li *ngIf="role === 'ETUDIANT'"><a routerLink="/etudiant/dashboard">Liste</a></li>
+    <li *ngIf="role === 'PROFESSEUR'"><a routerLink="/prof/dashboard">Liste</a></li>
+
+    <li><a (click)="logout()">Déconnexion</a></li>
+  </ul>
+</nav>

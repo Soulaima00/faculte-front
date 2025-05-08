@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from '../../model/user.model';
 import { AuthService } from '../../service/auth.service';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-dashboard-prof',
   standalone: true,
-  imports: [CommonModule,],
+  imports: [CommonModule,NavbarComponent ],
   templateUrl: './dashboard-prof.component.html',
   styleUrls: ['./dashboard-prof.component.css']
 })

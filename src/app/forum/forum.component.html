@@ -1,51 +1,88 @@
-<!-- Ajouter un post -->
-<div class="form-container">
-    <h2>Ajouter un post</h2>
+<app-navbar></app-navbar>
+
+<div class="forum-container">
+
+  <!-- ✅ Formulaire ajout -->
+  <div class="form-container">
+    <h2>📝 Ajouter un post</h2>
     <form (ngSubmit)="ajouterPost()">
-      <input type="text" placeholder="Titre" [(ngModel)]="newPost.titre" name="titre" required>
-      <textarea rows="5" placeholder="Contenu" [(ngModel)]="newPost.contenu" name="contenu" required></textarea>
+      <input type="text" placeholder="Titre du post" [(ngModel)]="newPost.titre" name="titre" required />
+      <textarea rows="5" placeholder="Contenu du post" [(ngModel)]="newPost.contenu" name="contenu" required></textarea>
       <button type="submit">Publier</button>
     </form>
   </div>
-  
-  <!-- Liste des posts -->
+
+  <!-- ✅ Liste des posts -->
   <div class="table-container" *ngIf="posts.length > 0">
-    <h2>Forum</h2>
-  
+    <h2>📚 Forum - Discussions</h2>
+
     <div *ngFor="let post of posts" class="post-card">
-      <h3>{{ post.titre }}</h3>
+      <div class="post-header">
+        <h3>
+          {{ post.titre }}
+          <span class="badge" [ngClass]="{
+            'prof': post.auteur.role?.name === 'PROFESSEUR',
+            'etu': post.auteur.role?.name === 'ETUDIANT'
+          }">
+            {{ post.auteur.role?.name }}
+          </span>
+        </h3>
+        <small>Posté le {{ post.dateCreation | date: 'short' }}</small>
+      </div>
+
       <p>{{ post.contenu }}</p>
-      <small>Posté le {{ post.dateCreation | date:'short' }}</small>
-  
+
       <!-- Boutons modifier/supprimer -->
       <div class="post-actions">
-        <button (click)="modifier(post)">Modifier</button>
-        <button (click)="supprimerPost(post.id!)">Supprimer</button>
+        <button class="edit" (click)="modifier(post)">✏️ Modifier</button>
+        <button class="delete" (click)="supprimerPost(post.id!)">🗑️ Supprimer</button>
       </div>
-  
+
       <!-- Formulaire de modification -->
-      <div *ngIf="modifierMode && postEnCours?.id === post.id">
-        <input [(ngModel)]="post.titre" name="modTitre">
-        <textarea [(ngModel)]="post.contenu" name="modContenu"></textarea>
+      <div *ngIf="modifierMode && postEnCours?.id === post.id" class="edit-form">
+        <input [(ngModel)]="postEnCours!.titre" name="modTitre" />
+        <textarea [(ngModel)]="postEnCours!.contenu" name="modContenu"></textarea>
         <button (click)="validerModification()">Valider</button>
-        <button (click)="annulerModification()">Annuler</button>
+        <button class="cancel" (click)="annulerModification()">Annuler</button>
       </div>
-  
-      <!-- 🟡 Commentaires -->
+
+      <!-- Commentaires -->
       <div class="commentaires">
-        <button (click)="chargerCommentaires(post.id!)">Afficher les commentaires</button>
-  
+        <button class="show-comments" (click)="chargerCommentaires(post.id!)">💬 Afficher les commentaires</button>
+
         <div *ngIf="post.id && commentaires[post.id]">
           <div *ngFor="let c of commentaires[post.id!] || []" class="comment">
-            <p><strong>{{ c.auteur.id }}:</strong> {{ c.contenu }}</p>
-            <small>{{ c.dateCreation | date:'short' }}</small>
+            <p>
+              <strong>
+                {{ c.auteur.nom }}
+                <span class="badge" [ngClass]="{
+                  'prof': c.auteur.role?.name === 'PROFESSEUR',
+                  'etu': c.auteur.role?.name === 'ETUDIANT'
+                }">
+                  {{ c.auteur.role?.name }}
+                </span>
+              </strong> :
+              {{ c.contenu }}
+            </p>
+            <small>{{ c.dateCreation | date: 'short' }}</small>
+
+            <div class="comment-actions">
+              <button class="edit" (click)="modifierCommentaire(c)">Modifier</button>
+              <button class="delete" (click)="supprimerCommentaire(post.id!, c.id!)">Supprimer</button>
+            </div>
+
+            <div *ngIf="commentaireEnCours?.id === c.id" class="edit-form">
+              <textarea [(ngModel)]="modifContenuCommentaire"></textarea>
+              <button (click)="validerModificationCommentaire(post.id!)">Valider</button>
+              <button (click)="annulerModificationCommentaire()">Annuler</button>
+            </div>
           </div>
-  
-          <textarea [(ngModel)]="nouveauxCommentaires[post.id]" placeholder="Ajouter un commentaire"></textarea>
+
+          <textarea [(ngModel)]="nouveauxCommentaires[post.id]" placeholder="Ajouter un commentaire..."></textarea>
           <button (click)="ajouterCommentaire(post.id!)">Envoyer</button>
         </div>
       </div>
-  
     </div>
   </div>
-  
+
+</div>

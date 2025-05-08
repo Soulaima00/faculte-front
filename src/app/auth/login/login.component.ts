@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarPublicComponent } from '../../shared/navbar-public/navbar-public.component';
 import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, RouterModule, NavbarPublicComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -33,11 +33,15 @@ export class LoginComponent {
   
         alert("Bienvenue " + user.nom + " (" + role + ")");
         localStorage.setItem('role', role);
+        localStorage.setItem('userId', user.id!.toString());
+        localStorage.setItem('user', JSON.stringify(user));
+
+
   
         if (role === "ETUDIANT") {
-          this.router.navigate(['/etudiant/dashboard']);
+          this.router.navigate(['/forum']);
         } else if (role === "PROFESSEUR") {
-          this.router.navigate(['/prof/dashboard']);
+          this.router.navigate(['/forum']);
         } else {
           alert("Rôle non reconnu.");
         }
