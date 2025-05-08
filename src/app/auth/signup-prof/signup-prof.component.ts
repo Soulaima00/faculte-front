@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { NavbarPublicComponent } from '../../shared/navbar-public/navbar-public.component';
 import { AuthService } from '../../service/auth.service';
 
@@ -22,13 +22,14 @@ export class SignupProfComponent {
     telephone: ''
   };
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService , private router: Router) {}
 
   onSubmit() {
     this.authService.registerProf(this.prof).subscribe({
       next: (res: any) => {
         console.log("Réponse :", res);
         alert("Inscription réussie : " + (res.message || res));
+        this.router.navigate(['/login']);
       },
       error: err => {
         console.error("Erreur : ", err);

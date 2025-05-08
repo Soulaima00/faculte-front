@@ -1,48 +1,98 @@
+/* 📦 Table Container */
 .table-container {
-  overflow-x: auto;
-  margin: 30px auto;
-  padding: 20px;
-  max-width: 95%;
-  border-radius: 18px;
-  background: white;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07);
+  font-family: 'Nunito', 'Roboto', sans-serif;
+  transition: transform 0.3s ease;
 }
 
-/* Tableau */
+.table-container:hover {
+  transform: translateY(-4px);
+}
+
+.table-container h2 {
+  margin-bottom: 24px;
+  font-size: 26px;
+  color: #1a202c;
+  font-weight: 700;
+  border-left: 6px solid #1976d2;
+  padding-left: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.table-container h2::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+}
+
+.table-container:nth-child(1) h2::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%231976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>');
+}
+
+.table-container:nth-child(2) h2::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%231976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>');
+}
+
+/* 📊 Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
+  background-color: #fff;
   border-radius: 12px;
   overflow: hidden;
 }
 
-/* En-tête */
 thead {
-  background-color: #e3eaf2;
-  color: #2c3e50;
-  font-weight: 600;
+  background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #1e293b;
   text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
   letter-spacing: 0.5px;
 }
 
-/* Cellules */
 th, td {
-  padding: 14px 18px;
+  padding: 16px 20px;
   text-align: left;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #e2e8f0;
   font-size: 15px;
-  color: #333;
+  color: #2d3748;
 }
 
-/* Lignes survolées */
-tr:hover {
-  background-color: #f5faff;
-  transition: background-color 0.2s ease-in-out;
+th {
+  position: relative;
 }
 
-/* Responsive */
+th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: #1976d2;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+tbody tr:hover {
+  background-color: #edf2f7;
+  transition: background-color 0.3s ease;
+}
+
+/* ✅ Responsive Mobile */
 @media (max-width: 768px) {
   table, thead, tbody, th, td, tr {
     display: block;
@@ -52,22 +102,62 @@ tr:hover {
     display: none;
   }
 
+  tr {
+    margin-bottom: 20px;
+    background: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 12px;
+    transition: transform 0.2s ease;
+  }
+
+  tr:hover {
+    transform: scale(1.01);
+  }
+
   td {
+    padding: 12px 12px 12px 50%;
     position: relative;
-    padding-left: 55%;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+
+  td:last-child {
+    border-bottom: none;
   }
 
   td::before {
     position: absolute;
-    top: 14px;
-    left: 18px;
+    top: 12px;
+    left: 16px;
     width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-    color: #666;
+    font-weight: 600;
+    color: #4a5568;
     content: attr(data-label);
+  }
+
+  .table-container {
+    padding: 20px;
+  }
+
+  .table-container h2 {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-container h2 {
+    font-size: 20px;
+  }
+
+  td {
+    font-size: 13px;
+    padding: 10px 10px 10px 50%;
+  }
+
+  td::before {
+    font-size: 13px;
   }
 }

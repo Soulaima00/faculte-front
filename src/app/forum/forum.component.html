@@ -1,8 +1,7 @@
 <app-navbar></app-navbar>
 
-<div class="forum-container">
-
-  <!-- ✅ Formulaire ajout -->
+<!-- 📝 Ajouter un post -->
+<div class="form-wrapper">
   <div class="form-container">
     <h2>📝 Ajouter un post</h2>
     <form (ngSubmit)="ajouterPost()">
@@ -11,78 +10,74 @@
       <button type="submit">Publier</button>
     </form>
   </div>
+</div>
 
-  <!-- ✅ Liste des posts -->
-  <div class="table-container" *ngIf="posts.length > 0">
-    <h2>📚 Forum - Discussions</h2>
+<!-- 📚 Liste des posts -->
+<div class="discussion-wrapper" *ngIf="posts.length > 0">
+  <h2>📚 Forum - Discussions</h2>
 
-    <div *ngFor="let post of posts" class="post-card">
-      <div class="post-header">
-        <h3>
-          {{ post.titre }}
-          <span class="badge" [ngClass]="{
-            'prof': post.auteur.role?.name === 'PROFESSEUR',
-            'etu': post.auteur.role?.name === 'ETUDIANT'
-          }">
-            {{ post.auteur.role?.name }}
-          </span>
-        </h3>
-        <small>Posté le {{ post.dateCreation | date: 'short' }}</small>
-      </div>
+  <div *ngFor="let post of posts" class="post-card">
+    <div class="post-header">
+      <h3>
+        {{ post.titre }}
+        <span class="badge" [ngClass]="{
+          'prof': post.auteur.role?.name === 'PROFESSEUR',
+          'etu': post.auteur.role?.name === 'ETUDIANT'
+        }">
+          {{ post.auteur.role?.name }}
+        </span>
+      </h3>
+      <small>Posté le {{ post.dateCreation | date: 'short' }}</small>
+    </div>
 
-      <p>{{ post.contenu }}</p>
+    <p>{{ post.contenu }}</p>
 
-      <!-- Boutons modifier/supprimer -->
-      <div class="post-actions">
-        <button class="edit" (click)="modifier(post)">✏️ Modifier</button>
-        <button class="delete" (click)="supprimerPost(post.id!)">🗑️ Supprimer</button>
-      </div>
+    <div class="post-actions">
+      <button class="edit" (click)="modifier(post)">✏️ Modifier</button>
+      <button class="delete" (click)="supprimerPost(post.id!)">🗑️ Supprimer</button>
+    </div>
 
-      <!-- Formulaire de modification -->
-      <div *ngIf="modifierMode && postEnCours?.id === post.id" class="edit-form">
-        <input [(ngModel)]="postEnCours!.titre" name="modTitre" />
-        <textarea [(ngModel)]="postEnCours!.contenu" name="modContenu"></textarea>
-        <button (click)="validerModification()">Valider</button>
-        <button class="cancel" (click)="annulerModification()">Annuler</button>
-      </div>
+    <div *ngIf="modifierMode && postEnCours?.id === post.id" class="edit-form">
+      <input [(ngModel)]="postEnCours!.titre" name="modTitre" />
+      <textarea [(ngModel)]="postEnCours!.contenu" name="modContenu"></textarea>
+      <button (click)="validerModification()">Valider</button>
+      <button class="cancel" (click)="annulerModification()">Annuler</button>
+    </div>
 
-      <!-- Commentaires -->
-      <div class="commentaires">
-        <button class="show-comments" (click)="chargerCommentaires(post.id!)">💬 Afficher les commentaires</button>
+    <!-- 💬 Commentaires -->
+    <div class="commentaires">
+      <button class="show-comments" (click)="chargerCommentaires(post.id!)">💬 Afficher les commentaires</button>
 
-        <div *ngIf="post.id && commentaires[post.id]">
-          <div *ngFor="let c of commentaires[post.id!] || []" class="comment">
-            <p>
-              <strong>
-                {{ c.auteur.nom }}
-                <span class="badge" [ngClass]="{
-                  'prof': c.auteur.role?.name === 'PROFESSEUR',
-                  'etu': c.auteur.role?.name === 'ETUDIANT'
-                }">
-                  {{ c.auteur.role?.name }}
-                </span>
-              </strong> :
-              {{ c.contenu }}
-            </p>
-            <small>{{ c.dateCreation | date: 'short' }}</small>
+      <div *ngIf="post.id && commentaires[post.id]">
+        <div *ngFor="let c of commentaires[post.id!] || []" class="comment">
+          <p>
+            <strong>
+              {{ c.auteur.nom }}
+              <span class="badge" [ngClass]="{
+                'prof': c.auteur.role?.name === 'PROFESSEUR',
+                'etu': c.auteur.role?.name === 'ETUDIANT'
+              }">
+                {{ c.auteur.role?.name }}
+              </span>
+            </strong> : {{ c.contenu }}
+          </p>
+          <small>{{ c.dateCreation | date: 'short' }}</small>
 
-            <div class="comment-actions">
-              <button class="edit" (click)="modifierCommentaire(c)">Modifier</button>
-              <button class="delete" (click)="supprimerCommentaire(post.id!, c.id!)">Supprimer</button>
-            </div>
-
-            <div *ngIf="commentaireEnCours?.id === c.id" class="edit-form">
-              <textarea [(ngModel)]="modifContenuCommentaire"></textarea>
-              <button (click)="validerModificationCommentaire(post.id!)">Valider</button>
-              <button (click)="annulerModificationCommentaire()">Annuler</button>
-            </div>
+          <div class="comment-actions">
+            <button class="edit" (click)="modifierCommentaire(c)">Modifier</button>
+            <button class="delete" (click)="supprimerCommentaire(post.id!, c.id!)">Supprimer</button>
           </div>
 
-          <textarea [(ngModel)]="nouveauxCommentaires[post.id]" placeholder="Ajouter un commentaire..."></textarea>
-          <button (click)="ajouterCommentaire(post.id!)">Envoyer</button>
+          <div *ngIf="commentaireEnCours?.id === c.id" class="edit-form">
+            <textarea [(ngModel)]="modifContenuCommentaire"></textarea>
+            <button (click)="validerModificationCommentaire(post.id!)">Valider</button>
+            <button (click)="annulerModificationCommentaire()">Annuler</button>
+          </div>
         </div>
+
+        <textarea [(ngModel)]="nouveauxCommentaires[post.id]" placeholder="Ajouter un commentaire..."></textarea>
+        <button (click)="ajouterCommentaire(post.id!)">Envoyer</button>
       </div>
     </div>
   </div>
-
 </div>

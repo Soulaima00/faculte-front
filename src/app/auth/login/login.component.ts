@@ -39,9 +39,9 @@ export class LoginComponent {
 
   
         if (role === "ETUDIANT") {
-          this.router.navigate(['/forum']);
+          this.router.navigate(['/etudiant/dashboard']);
         } else if (role === "PROFESSEUR") {
-          this.router.navigate(['/forum']);
+          this.router.navigate(['/prof/dashboard']);
         } else {
           alert("Rôle non reconnu.");
         }
